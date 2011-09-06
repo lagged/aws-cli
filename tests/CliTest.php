@@ -11,6 +11,7 @@ class CliTest extends \PHPUnit_Framework_TestCase
         return array(
             array(array('src/aws-cli.php', '--elb'), 'Lagged\AWS\Cli\Command\Elb'),
             array(array('--elb'), 'Lagged\AWS\Cli\Command\Elb'),
+            array(array('--help'), 'Lagged\AWS\Cli\Command\Help'),
         );
     }
 
