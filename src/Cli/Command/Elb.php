@@ -62,18 +62,28 @@ class Elb extends Command
         return $tasks;
     }
 
+    /**
+     * @param string $elb
+     */
     public function Instances($elb)
     {
-        $r = $this->elb->describe_load_balancers($elb);
+        $opts                      = array();
+        $opts['LoadBalancerNames'] = $elb;
+
+        $r = $this->elb->describe_load_balancers($opts);
+
+        $this->checkResponse($r);
+
+        $m = $r->body->DescribeLoadBalancersResult->LoadBalancerDescriptions->member->to_array();
+        return $m['Instances'];
     }
 
     public function Listall()
     {
         $r = $this->elb->describe_load_balancers();
-        if ($r->isOK() === false) {
-            var_dump($r, get_class_methods($r));
-            throw new \RuntimeException($r->body->Error->Message, $r->header['_info']['http_code']);
-        }
+
+        $this->checkResponse($r);
+
         $result = $r->body->DescribeLoadBalancersResult;
         if (!isset($result->LoadBalancerDescriptions)) {
             return array();
