@@ -1,6 +1,7 @@
 <phpunit bootstrap="./tests/TestInit.php" verbose="true" colors="true">
     <testsuite name="AwsCliTest">
         <file>./tests/CliTest.php</file>
+	<file>./tests/CommandTest.php</file>
         <file>./tests/ConfigTest.php</file>
     </testsuite>
 </phpunit>
