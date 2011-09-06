@@ -40,6 +40,12 @@ abstract class Command
             $this->key    = AWS_KEY;
             $this->secret = AWS_SECRET_KEY;
         }
+        if (empty($this->key)) {
+            throw new \RuntimeException("Key missing: no config file or constant found.");
+        }
+        if (empty($this->secret)) {
+            throw new \RuntimeException("Secret missing: no config file or constant found.");
+        }
     }
 
     public function execute($method)
@@ -47,11 +53,12 @@ abstract class Command
         if (empty($method)) {
             throw new \LogicException("Can't execute an empty method.");
         }
+
         if (!is_callable(array($this, $method))) {
             throw new \RuntimeException("Invalid task: {$method}");
         }
         return call_user_func(array($this, $method));
     }
 
-    abstract function getHelp();
+    abstract function Help();
 }
