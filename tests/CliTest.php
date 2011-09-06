@@ -34,6 +34,7 @@ class CliTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(array('--elb', '--instances=ELBNAME'), array('ELBNAME')),
+            array(array('--elb', '--foo=bar,foo'), array('bar','foo')),
         );
     }
 
