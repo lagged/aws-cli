@@ -33,6 +33,13 @@ class Cli
     protected $task;
 
     /**
+     * @var array $values
+     * @see self::parseArgv()
+     * @see self::getValues()
+     */
+    protected $values;
+
+    /**
      * __construct
      *
      * @param array $argv
@@ -65,6 +72,15 @@ class Cli
     {
         $this->parseArgv();
         return $this->task;
+    }
+
+    /**
+     * @return array
+     */
+    public function getValues()
+    {
+        $this->parseArgv();
+        return $this->values;
     }
 
     /**
@@ -105,11 +121,24 @@ class Cli
 
         $this->command = $className;
 
+        $value = null;
+
         if (isset($this->argv[1])) {
-            $task       = @$this->argv[1];
+            $task = @$this->argv[1];
+
+            if (strstr($task, '=') !== false) {
+                list($task, $value) = explode('=', $task);
+            } 
+
             $this->task = $this->getPhpName($task);
         } else {
             // usage
+        }
+
+        if ($value !== null) {
+            $this->values = explode(',', $value);
+        } else {
+            $this->values = array();
         }
     }
 }
