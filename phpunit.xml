@@ -1,0 +1,5 @@
+<phpunit bootstrap="./tests/TestInit.php" verbose="true" colors="true">
+    <testsuite name="CliTest">
+        <file>./tests/CliTest.php</file>
+    </testsuite>
+</phpunit>
