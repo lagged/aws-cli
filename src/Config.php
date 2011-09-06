@@ -1,18 +1,46 @@
 <?php
 namespace Lagged\AWS;
 
+/**
+ * This is a very light-weight version of Zend_Config_Ini for our own purposes.
+ *
+ * @category Config
+ * @package  Lagged\AWS
+ * @author   Till Klampaeckel <till@lagged.biz>
+ * @version  Release: @package_version@
+ * @license  http:// The New BSD License
+ * @link     http://lagged.biz/
+ */
 class Config
 {
+    /**
+     * @var mixed $config null or stdClass
+     */
     protected $config;
+
+    /**
+     * @var string $file
+     */
     protected $file;
 
+    /**
+     * __construct
+     *
+     * @param string $file Complete path to the config file.
+     *
+     * @return $this
+     */
     public function __construct($file)
     {
         $this->file = $file;
     }
 
     /**
-     * Return a value from {@link $config}
+     * Return a value from {@link self::$config}
+     *
+     * @param string $var
+     *
+     * @return mixed
      */
     public function __get($var)
     {
@@ -20,7 +48,7 @@ class Config
             $this->processIni();
         }
         if (!isset($this->config->$var)) {
-            throw new RangeException("Unknown key '{$var}'.");
+            throw new \RangeException("Unknown key '{$var}'.");
         }
         return $this->config->$var;
     }
