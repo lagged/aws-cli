@@ -40,4 +40,25 @@ class Elb extends Command
             $args
         );
     }
+
+    /**
+     * Return all available methods.
+     *
+     * @return array
+     */
+    public function getHelp()
+    {
+        $r = new \ReflectionClass('\AmazonELB');
+        $t = $r->getMethods(\ReflectionMethod::IS_PUBLIC);
+
+        $tasks = array();
+        foreach ($t as $m) {
+            $n = $m->name;
+            if (substr($n, 0, 2) == '__') {
+                continue;
+            }
+            $tasks[] = $n;
+        }
+        return $tasks;
+    }
 }

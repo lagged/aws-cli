@@ -41,4 +41,17 @@ abstract class Command
             $this->secret = AWS_SECRET_KEY;
         }
     }
+
+    public function execute($method)
+    {
+        if (empty($method)) {
+            throw new \LogicException("Can't execute an empty method.");
+        }
+        if (!is_callable(array($this, $method))) {
+            throw new \RuntimeException("Invalid task: {$method}");
+        }
+        return call_user_func(array($this, $method));
+    }
+
+    abstract function getHelp();
 }
