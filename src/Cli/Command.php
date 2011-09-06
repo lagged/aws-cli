@@ -48,7 +48,15 @@ abstract class Command
         }
     }
 
-    public function execute($method)
+    /**
+     * Execute the method.
+     *
+     * @param string $method 
+     * @param array  $values
+     *
+     * @return array
+     */
+    public function execute($method, array $values = null)
     {
         if (empty($method)) {
             throw new \LogicException("Can't execute an empty method.");
@@ -57,8 +65,28 @@ abstract class Command
         if (!is_callable(array($this, $method))) {
             throw new \RuntimeException("Invalid task: {$method}");
         }
-        return call_user_func(array($this, $method));
+        if (empty($values)) {
+            $call = call_user_func(array($this, $method));
+        } else {
+            $call = call_user_func_array(array($this, $method), $values);
+        }
+        return $call;
     }
 
     abstract function Help();
+
+    /**
+     * Throw an exception if this is an error.
+     *
+     * @param CFResponse $r
+     *
+     * @return void
+     * @throws \RuntimeException
+     */
+    protected function checkResponse(\CFResponse $r)
+    {
+        if ($r->isOK() === false) {
+            throw new \RuntimeException($r->body->Error->Message, $r->header['_info']['http_code']);
+        }
+    }
 }
