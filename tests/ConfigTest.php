@@ -31,6 +31,11 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertObjectHasAttribute('secret', $aws);
     }
 
+    /**
+     * __isset
+     *
+     * @return void
+     */
     public function testIsset()
     {
         $this->assertTrue(isset($this->config->aws));
