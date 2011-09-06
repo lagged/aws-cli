@@ -44,13 +44,22 @@ class Config
      */
     public function __get($var)
     {
-        if ($this->config === null) {
-            $this->processIni();
-        }
+        $this->processIni();
         if (!isset($this->config->$var)) {
             throw new \RangeException("Unknown key '{$var}'.");
         }
         return $this->config->$var;
+    }
+
+    /**
+     * So magic!
+     *
+     * @return boolean
+     */
+    public function __isset($var)
+    {
+        $this->processIni();
+        return isset($this->config->$var);
     }
 
     /**
@@ -62,6 +71,9 @@ class Config
      */
     protected function processIni()
     {
+        if ($this->config !== null) {
+            return;
+        }
         $config = parse_ini_file($this->file);
 
         $this->config = new \stdClass;
