@@ -107,9 +107,9 @@ class Cli
 
         if (isset($this->argv[1])) {
             $task       = @$this->argv[1];
-            $this->task = 'get' . $this->getPhpName($task);
+            $this->task = $this->getPhpName($task);
         } else {
-            //$this->task = 'getHelp';
+            // usage
         }
     }
 }
