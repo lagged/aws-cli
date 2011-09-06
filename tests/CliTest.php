@@ -22,4 +22,11 @@ class CliTest extends \PHPUnit_Framework_TestCase
         $cli  = new Lagged\AWS\Cli($args);
         $this->assertEquals($class, $cli->getCommand());
     }
+
+    public function testGetTask()
+    {
+        $args = array('--elb', '--help');
+        $cli  = new Lagged\AWS\Cli($args);
+        $this->assertEquals('getHelp', $cli->getTask());
+    }
 }

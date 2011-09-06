@@ -13,13 +13,18 @@ class Elb extends Command
     /**
      * __construct
      *
-     * @param array $config
+     * @param \Lagged\AWS\Config $config
      *
      * @return $this
+     * @uses   parent::__construct()
+     * @uses   parent::$key
+     * @uses   parent::$secret
+     * @throws \LogicException When the configuration is not proper.
      */
-    public function __construct(array $config = null)
+    public function __construct(\Lagged\AWS\Config $config = null)
     {
-        $this->elb = new \AmazonELB(); 
+        parent::__construct($config);
+        $this->elb = new \AmazonELB($this->key, $this->secret); 
     }
 
     /**

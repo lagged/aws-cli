@@ -26,6 +26,13 @@ class Cli
     protected $command;
 
     /**
+     * @var string $task
+     * @see self::parseArgv()
+     * @see self::getTask()
+     */
+    protected $task;
+
+    /**
      * __construct
      *
      * @param array $argv
@@ -50,6 +57,30 @@ class Cli
     }
 
     /**
+     * Task to execute!
+     *
+     * @return string
+     */
+    public function getTask()
+    {
+        $this->parseArgv();
+        return $this->task;
+    }
+
+    /**
+     * Convert an argument to the script into a 'PHP name'.
+     *
+     * @param string $arg
+     *
+     * @return string
+     */
+    protected function getPhpName($arg)
+    {
+        $phpName = ucfirst(strtolower(str_replace('--', '', $arg)));
+        return $phpName;
+    }
+
+    /**
      * Parse the arguments to script. This doesn't validate user input.
      *
      * @return void
@@ -70,8 +101,15 @@ class Cli
             throw new \InvalidArgumentException("Need to provide a command.", 1);
         }
         $className  = __NAMESPACE__ . '\Cli\Command\\';
-        $className .= ucfirst(strtolower(str_replace('--', '', $command)));
+        $className .= $this->getPhpName($command);
 
         $this->command = $className;
+
+        if (isset($this->argv[1])) {
+            $task       = @$this->argv[1];
+            $this->task = 'get' . $this->getPhpName($task);
+        } else {
+            //$this->task = 'getHelp';
+        }
     }
 }
