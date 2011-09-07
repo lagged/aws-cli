@@ -48,7 +48,7 @@ class Elb extends Command
      */
     public function Help()
     {
-        $r = new \ReflectionClass('\AmazonELB');
+        $r = new \ReflectionClass(__CLASS__);
         $t = $r->getMethods(\ReflectionMethod::IS_PUBLIC);
 
         $tasks = array();
@@ -57,7 +57,10 @@ class Elb extends Command
             if (substr($n, 0, 2) == '__') {
                 continue;
             }
-            $tasks[] = $n;
+            if (ucfirst($n) !== $n) {
+                continue;
+            }
+            $tasks[] = $this->getOptionName($n);
         }
         return $tasks;
     }
@@ -94,5 +97,15 @@ class Elb extends Command
             $data[$m['LoadBalancerName']] = $m['CanonicalHostedZoneName'];
         }
         return $data;
+    }
+
+    /**
+     * @param string $elb
+     * @param string $instance
+     */
+    public function Register($elb, $instance)
+    {
+        $r = $this->elb->register_instances_with_load_balancer($load_balancer_name, $instances);
+        $this->checkResponse($r);
     }
 }

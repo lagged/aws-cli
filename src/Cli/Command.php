@@ -89,4 +89,9 @@ abstract class Command
             throw new \RuntimeException($r->body->Error->Message, $r->header['_info']['http_code']);
         }
     }
+
+    protected function getOptionName($str)
+    {
+        return '--' . strtolower($str);
+    }
 }

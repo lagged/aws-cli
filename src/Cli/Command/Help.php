@@ -13,7 +13,7 @@ class Help extends Command
     {
         $data = array();
         foreach (glob(__DIR__ . '/*.php') as $file) {
-            $data[] = '--' . strtolower(substr(basename($file), 0, -4));
+            $data[] = $this->getOptionName(substr(basename($file), 0, -4));
         }
         return $data;
     }
