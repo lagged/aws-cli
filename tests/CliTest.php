@@ -12,6 +12,7 @@ class CliTest extends \PHPUnit_Framework_TestCase
             array(array('src/aws-cli.php', '--elb'), 'Lagged\AWS\Cli\Command\Elb'),
             array(array('--elb'), 'Lagged\AWS\Cli\Command\Elb'),
             array(array('--help'), 'Lagged\AWS\Cli\Command\Help'),
+            array(array('--elb=foo'), 'Lagged\AWS\Cli\Command\Elb'),
         );
     }
 
@@ -36,6 +37,8 @@ class CliTest extends \PHPUnit_Framework_TestCase
         return array(
             array(array('--elb', '--instances=ELBNAME'), array('ELBNAME')),
             array(array('--elb', '--foo=bar,foo'), array('bar','foo')),
+            array(array('--elb=foo', '--register=bar'), array('foo','bar')),
+            array(array('--elb=bib-elb-test', '--register=bar,foo'), array('bib-elb-test','bar','foo')),
         );
     }
 
