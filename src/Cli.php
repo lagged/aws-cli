@@ -84,6 +84,54 @@ class Cli
     }
 
     /**
+     * Extract the command.
+     *
+     * @param string $str
+     *
+     * @return string
+     */
+    protected function extractCommand($str)
+    {
+        if (!strstr($str, '=')) {
+            return $str;
+        }
+        list($command, $value) = explode('=', $str);
+        return $command;
+    }
+
+    /**
+     * Extract the task from --task=foo
+     *
+     * @param string $str
+     *
+     * @return string
+     * @uses   self::extractCommand()
+     */
+    protected function extractTask($str)
+    {
+        return $this->extractCommand($str);
+    }
+
+    /**
+     * Extract value from --foo=bar
+     *
+     * @param string $str
+     *
+     * @return array
+     */
+    protected function extractValue($str)
+    {
+        $value = array();
+        if (strstr($str, '=') !== false) {
+            list($task, $value_str) = explode('=', $str);
+            if (!empty($value_str)) {
+                $value = explode(',', $value_str);
+            }
+        }
+        return $value;
+    }
+
+    /**
      * Convert an argument to the script into a 'PHP name'.
      *
      * @param string $arg
@@ -113,6 +161,9 @@ class Cli
         }
 
         $command = @$this->argv[0];
+        $value1  = $this->extractValue($command);
+        $command = $this->extractCommand($command);
+
         if (empty($command)) {
             throw new \InvalidArgumentException("Need to provide a command.", 1);
         }
@@ -121,24 +172,15 @@ class Cli
 
         $this->command = $className;
 
-        $value = null;
+        $value2 = array();
 
         if (isset($this->argv[1])) {
-            $task = @$this->argv[1];
-
-            if (strstr($task, '=') !== false) {
-                list($task, $value) = explode('=', $task);
-            } 
-
+            $task       = $this->extractTask($this->argv[1]);
+            $value2     = $this->extractValue($this->argv[1]);
             $this->task = $this->getPhpName($task);
         } else {
             // usage
         }
-
-        if ($value !== null) {
-            $this->values = explode(',', $value);
-        } else {
-            $this->values = array();
-        }
+        $this->values = array_merge($value1, $value2);
     }
 }
