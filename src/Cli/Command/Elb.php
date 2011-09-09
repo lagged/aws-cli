@@ -103,9 +103,37 @@ class Elb extends Command
      * @param string $elb
      * @param string $instance
      */
-    public function Register($elb, $instance)
+    public function Register()
     {
-        $r = $this->elb->register_instances_with_load_balancer($load_balancer_name, $instances);
+        if (func_num_args() < 2) {
+            throw new \InvalidArgumentException("Not enough parameters given.");
+        }
+        $elb       = func_get_arg(0);
+        $instances = array();
+        for ($x=1; $x<func_num_args(); ++$x) {
+            $instances[] = func_get_arg($x);
+        }
+        $r = $this->elb->register_instances_with_load_balancer($elb, $instances);
         $this->checkResponse($r);
+        var_dump($r);
+    }
+
+    /**
+     * @param string $elb
+     * @param string $instance
+     */
+    public function Unregister()
+    {
+        if (func_num_args() < 2) {
+            throw new \InvalidArgumentException("Not enough parameters given.");
+        }
+        $elb       = func_get_arg(0);
+        $instances = array();
+        for ($x=1; $x<func_num_args(); ++$x) {
+            $instances[] = func_get_arg($x);
+        }
+        $r = $this->elb->unregister_instances_with_load_balancer($elb, $instances);
+        $this->checkResponse($r);
+        var_dump($r);
     }
 }
