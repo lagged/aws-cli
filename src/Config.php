@@ -1,4 +1,15 @@
 <?php
+/**
+ * \Lagged\AWS\Config.
+ *
+ * @category Config
+ * @package  Lagged\AWS
+ * @author   Till Klampaeckel <till@lagged.biz>
+ * @version  Release: @package_version@
+ * @license  http:// The New BSD License
+ * @link     http://lagged.biz/
+ */
+
 namespace Lagged\AWS;
 
 /**

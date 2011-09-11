@@ -1,8 +1,31 @@
 <?php
+/**
+ * Lagged\AWS\Cli\Command\Elb
+ *
+ * @category Cli
+ * @package  Lagged\AWS
+ * @author   Till Klampaeckel <till@lagged.biz>
+ * @version  GIT: $Id$
+ * @license  http:// The New BSD License
+ * @link     http://lagged.biz/
+ */
 namespace Lagged\AWS\Cli\Command;
 
+/**
+ * @desc Import class.
+ */
 use Lagged\AWS\Cli\Command as Command;
 
+/**
+ * Lagged\AWS\Cli\Command\Elb
+ *
+ * @category Cli
+ * @package  Lagged\AWS
+ * @author   Till Klampaeckel <till@lagged.biz>
+ * @version  GIT: $Id$
+ * @license  http:// The New BSD License
+ * @link     http://lagged.biz/
+ */
 class Elb extends Command
 {
     /**

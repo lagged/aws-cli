@@ -1,4 +1,15 @@
 <?php
+/**
+ * Lagged\AWS\Cli
+ *
+ * @category Cli
+ * @package  Lagged\AWS
+ * @author   Till Klampaeckel <till@lagged.biz>
+ * @version  GIT: $Id$
+ * @license  http:// The New BSD License
+ * @link     http://lagged.biz/
+ */
+
 namespace Lagged\AWS;
 
 /**

@@ -1,12 +1,38 @@
 #!/usr/bin/env php
 <?php
+/**
+ * aws-cli.php
+ *
+ * Run this script for all tasks, etc..
+ *
+ * @category Cli
+ * @package  Lagged\AWS
+ * @author   Till Klampaeckel <till@lagged.biz>
+ * @version  GIT: $Id$
+ * @license  http:// The New BSD License
+ * @link     http://lagged.biz/
+ */
+
+/**
+ * @desc Import classes.
+ */
 use Lagged\AWS\Cli as Cli;
 use Lagged\AWS\Config as Config;
 
+/**
+ * @desc Define the environment.
+ */
 $env = 'pear';
 
-if (strpos('@package_release@', '@package') === 0) {
+if ('@package_release@' == '@' . 'package_release' . '@') {
     $env = 'source';
+} else {
+    /**
+     * For a PEAR package, we shpould install the SDK from its pear channel and
+     * not rely on it in the same directory. Autoloading needs to be refined as
+     * well.
+     */
+    throw \DomainException("Not yet implemented.");
 }
 
 $path   = '';
@@ -38,27 +64,12 @@ try {
     
     $data = $cmdObj->execute($task, $values); //var_dump($data);
 
-    echo "You executed: {$task}" . PHP_EOL . PHP_EOL;
-
-    if (!is_array($data)) {
-        echo "Error: No data..." . PHP_EOL;
-        exit(2);
-    }
-
-    foreach ($data as $key => $value) {
-        if (!is_array($value)) {
-            if (!is_numeric($key)) {
-                echo ' * ' . $key . ': ';
-            }
-            echo $value . PHP_EOL;
-            continue;
-        }
-        echo ' * ' . key($value) . ': ' . current($value);
-    }
-    echo PHP_EOL;
-    exit(0);
+    $text = new Cli\Text($task);
+    echo $text->setResponse($data)->output();
+    exit($text->getExitCode());
 
 } catch (Exception $e) {
+    var_dump($e);
     echo $e->getMessage() . PHP_EOL;
     exit($e->getCode());
 }

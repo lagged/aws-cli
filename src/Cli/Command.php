@@ -1,6 +1,31 @@
 <?php
+/**
+ * Lagged\AWS\Cli\Command
+ *
+ * Abstract for commands we implement.
+ *
+ * @category Cli
+ * @package  Lagged\AWS
+ * @author   Till Klampaeckel <till@lagged.biz>
+ * @version  GIT: $Id$
+ * @license  http:// The New BSD License
+ * @link     http://lagged.biz/
+ */
+
 namespace Lagged\AWS\Cli;
 
+/**
+ * Lagged\AWS\Cli\Command
+ *
+ * Abstract for commands we implement.
+ *
+ * @category Cli
+ * @package  Lagged\AWS
+ * @author   Till Klampaeckel <till@lagged.biz>
+ * @version  Release: @package_version@
+ * @license  http:// The New BSD License
+ * @link     http://lagged.biz/
+ */
 abstract class Command
 {
     /**
