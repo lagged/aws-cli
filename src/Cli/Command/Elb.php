@@ -111,8 +111,9 @@ class Elb extends Command
         $elb       = func_get_arg(0);
         $instances = array();
         for ($x=1; $x<func_num_args(); ++$x) {
-            $instances[] = func_get_arg($x);
+            $instances[] = array('InstanceId' => func_get_arg($x));
         }
+
         $r = $this->elb->register_instances_with_load_balancer($elb, $instances);
         $this->checkResponse($r);
         var_dump($r);
@@ -130,7 +131,7 @@ class Elb extends Command
         $elb       = func_get_arg(0);
         $instances = array();
         for ($x=1; $x<func_num_args(); ++$x) {
-            $instances[] = func_get_arg($x);
+            $instances[] = array('InstanceId' => func_get_arg($x));
         }
         $r = $this->elb->unregister_instances_with_load_balancer($elb, $instances);
         $this->checkResponse($r);
