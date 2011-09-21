@@ -19,7 +19,9 @@ _Work in progress!_ (Please fork!)
 ### Requirements & Setup
 
  * PHP 5.3+ (curl)
- * setup: clone this repo and run `scripts/aws-cli.php`
+ * setup: clone this repo
+ * copy `etc/aws-cli.ini-dist` to `etc/aws-cli.ini` and add your credentials
+ * run `scripts/aws-cli.php`
 
 ### Support
 
