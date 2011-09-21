@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+    http://pear.php.net/dtd/tasks-1.0.xsd
+    http://pear.php.net/dtd/package-2.0
+    http://pear.php.net/dtd/package-2.0.xsd">
+ <name>AWS_Cli</name>
+ <channel>easybib.github.com/pear</channel>
+ <summary>AWS_Cli is a hopefully sane CLI to AWS services.</summary>
+ <description>AWS_Cli is a hopefully sane CLI to AWS services.
+Currently supported: 
+ * ELB 
+
+This is heavy work in progress.
+ </description>
+ <lead>
+  <name>Till Klampaeckel</name>
+  <user>till</user>
+  <email>till@lagged.biz</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-09-21</date>
+ <time>15:15:36</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+ <notes>
+Initial release!
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="etc">
+    <file baseinstalldir="/" name="aws-cli.ini-dist" role="data">
+     <tasks:replace from="@package_version@" to="version" type="package-info" />
+     <tasks:replace from="@cfg_dir@" to="cfg_dir" type="pear-config" />
+     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    </file>
+   </dir> <!-- /etc -->
+   <dir name="scripts">
+    <file baseinstalldir="/" name="aws-cli.php" role="script">
+     <tasks:replace from="@package_version@" to="version" type="package-info" />
+     <tasks:replace from="@cfg_dir@" to="cfg_dir" type="pear-config" />
+     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    </file>
+   </dir> <!-- /scripts -->
+   <dir name="src">
+    <dir name="Lagged">
+     <dir name="AWS">
+      <dir name="Cli">
+       <dir name="Command">
+        <file baseinstalldir="/" name="Elb.php" role="php">
+         <tasks:replace from="@package_version@" to="version" type="package-info" />
+         <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+        </file>
+        <file baseinstalldir="/" name="Help.php" role="php">
+         <tasks:replace from="@package_version@" to="version" type="package-info" />
+         <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+        </file>
+       </dir> <!-- /src/Lagged/AWS/Cli/Command -->
+       <file baseinstalldir="/" name="Command.php" role="php">
+        <tasks:replace from="@package_version@" to="version" type="package-info" />
+        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+       </file>
+       <file baseinstalldir="/" name="Text.php" role="php">
+        <tasks:replace from="@package_version@" to="version" type="package-info" />
+        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+       </file>
+      </dir> <!-- /src/Lagged/AWS/Cli -->
+      <file baseinstalldir="/" name="Autoload.php" role="php">
+       <tasks:replace from="@package_version@" to="version" type="package-info" />
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
+      <file baseinstalldir="/" name="Cli.php" role="php">
+       <tasks:replace from="@package_version@" to="version" type="package-info" />
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
+      <file baseinstalldir="/" name="Config.php" role="php">
+       <tasks:replace from="@package_version@" to="version" type="package-info" />
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
+     </dir> <!-- /src/Lagged/AWS -->
+    </dir> <!-- /src/Lagged -->
+   </dir> <!-- /src -->
+   <dir name="tests">
+    <file baseinstalldir="/" name="CliTest.php" role="test" />
+    <file baseinstalldir="/" name="CommandTest.php" role="test" />
+    <file baseinstalldir="/" name="ConfigTest.php" role="test" />
+    <file baseinstalldir="/" name="TestInit.php" role="test" />
+   </dir> <!-- /tests -->
+   <file baseinstalldir="/" name="phpunit.xml" role="test" />
+   <file baseinstalldir="/" name="README.md" role="doc">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:replace from="@cfg_dir@" to="cfg_dir" type="pear-config" />
+    <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+   </file>
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0a7</min>
+   </pearinstaller>
+   <package>
+    <name>SDK</name>
+    <channel>pear.amazonwebservices.com</channel>
+    <min>1.4.2.1</min>
+   </package>
+   <extension>
+    <name>spl</name>
+   </extension>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="Lagged/AWS/Autoload.php" name="src/Lagged/AWS/Autoload.php" />
+   <install as="Lagged/AWS/Cli/Command/Elb.php" name="src/Lagged/AWS/Cli/Command/Elb.php" />
+   <install as="Lagged/AWS/Cli/Command/Help.php" name="src/Lagged/AWS/Cli/Command/Help.php" />
+   <install as="Lagged/AWS/Cli/Command.php" name="src/Lagged/AWS/Cli/Command.php" />
+   <install as="Lagged/AWS/Cli/Text.php" name="src/Lagged/AWS/Cli/Text.php" />
+   <install as="Lagged/AWS/Cli.php" name="src/Lagged/AWS/Cli.php" />
+   <install as="Lagged/AWS/Config.php" name="src/Lagged/AWS/Config.php" />
+   <install as="aws-cli" name="scripts/aws-cli.php" />
+   <install as="aws-cli.ini-dist" name="etc/aws-cli.ini-dist" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-09-21</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+Initial release!
+   </notes>
+  </release>
+ </changelog>
+</package>
