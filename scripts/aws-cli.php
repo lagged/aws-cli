@@ -26,13 +26,6 @@ $env = 'pear';
 
 if ('@package_release@' == '@' . 'package_release' . '@') {
     $env = 'source';
-} else {
-    /**
-     * For a PEAR package, we shpould install the SDK from its pear channel and
-     * not rely on it in the same directory. Autoloading needs to be refined as
-     * well.
-     */
-    throw \DomainException("Not yet implemented.");
 }
 
 $path   = '';
@@ -41,16 +34,20 @@ $src    = '';
 
 if ($env == 'source') {
     $path   = dirname(__DIR__);
-    $vendor = $path . '/vendor';
-    $src    = $path . '/src';
-    $etc    = $path . '/etc/config.ini';
+    $vendor = $path . '/vendor/aws-sdk-for-php';
+    $src    = $path . '/src/';
+    $etc    = $path . '/etc/aws-cli.ini';
+} else {
+    $vendor = 'AWSSDKforPHP'; // include_path
+    $src    = '';
+    $etc    = '/etc/aws-cli.ini';
 }
 
 // FIXME: absolute path?
-require_once $vendor . '/aws-sdk-for-php/sdk.class.php';
+require_once $vendor . '/sdk.class.php';
 
 try {
-    require_once $src . '/Autoload.php';
+    require_once $src . 'Lagged/AWS/Autoload.php';
     spl_autoload_register(array('Lagged\AWS\Autoload', 'load'));
 
     $config = new Config($etc);
@@ -61,7 +58,7 @@ try {
 
     $task   = $cli->getTask();
     $values = $cli->getValues();
-    
+
     $data = $cmdObj->execute($task, $values); //var_dump($data);
 
     $text = new Cli\Text($task);
@@ -69,7 +66,7 @@ try {
     exit($text->getExitCode());
 
 } catch (Exception $e) {
-    var_dump($e);
+    //var_dump($e);
     echo $e->getMessage() . PHP_EOL;
     exit($e->getCode());
 }
