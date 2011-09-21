@@ -2,6 +2,8 @@
 
 A small wrapper around AWS' PHP SDK to perform some tasks from the command line.
 
+Current version: @package_version@
+
 ### Currently Supported
 
 #### Elastic Loadbalancers
@@ -30,6 +32,4 @@ If you notice anything odd or want to add an improvement, feel free to open an i
 ### Todo
 
  * Refactor option parsing with `getopt()`
- * Fix replacement role for `@data_dir@`
  * `--help --help` is unintuitive
- * Fix install as for `src/*` and `scripts/aws-cli.php`
