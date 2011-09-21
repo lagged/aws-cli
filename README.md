@@ -26,3 +26,10 @@ _Work in progress!_ (Please fork!)
 ### Support
 
 If you notice anything odd or want to add an improvement, feel free to open an issue and/or send a pull request.
+
+### Todo
+
+ * Refactor option parsing with `getopt()`
+ * Fix replacement role for `@data_dir@`
+ * `--help --help` is unintuitive
+ * Fix install as for `src/*` and `scripts/aws-cli.php`
