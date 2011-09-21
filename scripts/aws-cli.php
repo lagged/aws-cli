@@ -24,7 +24,7 @@ use Lagged\AWS\Config as Config;
  */
 $env = 'pear';
 
-if ('@package_release@' == '@' . 'package_release' . '@') {
+if ('@package_version@' == '@' . 'package_version' . '@') {
     $env = 'source';
 }
 
@@ -38,9 +38,9 @@ if ($env == 'source') {
     $src    = $path . '/src/';
     $etc    = $path . '/etc/aws-cli.ini';
 } else {
-    $vendor = 'AWSSDKforPHP'; // include_path
-    $src    = '';
-    $etc    = '/etc/aws-cli.ini';
+    $vendor = '@php_dir@' . '/AWSSDKforPHP';
+    $src    = '@php_dir@' . '/';
+    $etc    = '@cfg_dir@' . '/AWS_Cli/aws-cli.ini';
 }
 
 // FIXME: absolute path?
